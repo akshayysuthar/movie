@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <title>Request for movie</title>
+</head>
+
+<body>
+  <div>
+    <h1>Movie Request Form</h1>
+    <form id="movie-request-form">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" required>
+      <br>
+      <label for="movie-name">Movie Name:</label>
+      <input type="text" id="movie" name="movie" required>
+      <br>
+      <button type="submit">Submit Request</button>
+    </form>
+    <br>
+    <div id="request-list"></div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
+  <script>
+    // Initialize Firebase
+    var firebaseConfig = {
+      apiKey: "AIzaSyDzPkn0rvSZ1fpwZZs_QBFezKm0Jcomo78",
+      authDomain: "manjamovies-ec449.firebaseapp.com",
+      projectId: "manjamovies-ec449",
+      storageBucket: "manjamovies-ec449.appspot.com",
+      messagingSenderId: "877062733979",
+      appId: "1:877062733979:web:651a50c80302873ad4463e",
+      measurementId: "G-BC8LN4ESR2"
+    };
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
+  </script>
+  <script>
+    // Listen for form submit
+    $('#movie-reuest-form').submit(function (e) {
+      e.preventDefault();
+
+      // Get form values
+      var name = $('#name').val();
+      var movie = $('#movie').val();
+
+      // Add movie to Firestore
+      db.collection("requests").add({
+        title: title,
+        poster: poster
+      })
+        .then(function (docRef) {
+          alert("request saved successfully!");
+        })
+        .catch(function (error) {
+          console.error("Error adding request: ", error);
+          alert("Error saving request. Please try again.");
+        });
+    });
+
+
+
+  </script>
+
+</body>
+
+</html>

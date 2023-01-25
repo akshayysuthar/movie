@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Movie</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDzPkn0rvSZ1fpwZZs_QBFezKm0Jcomo78",
+            authDomain: "manjamovies-ec449.firebaseapp.com",
+            projectId: "manjamovies-ec449",
+            storageBucket: "manjamovies-ec449.appspot.com",
+            messagingSenderId: "877062733979",
+            appId: "1:877062733979:web:651a50c80302873ad4463e",
+            measurementId: "G-BC8LN4ESR2"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg text-bg-danger">
+        <div class="container">
+          <a class="navbar-brand" href="index.html">Dashboard</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link " href="index.html">Home</a>
+                <a class="nav-link active" aria-current="page" href="Addd.html">Add movie</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" id="search-input" aria-label="Search" />
+              <button class="btn btn-outline-success" id="search-button" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+
+    <form id="search-form">
+        <label for="query">Search:</label>
+        <input type="text" id="query" name="query">
+        <button type="submit" id="search-btn">Search</button>
+    </form>
+    <div id="search-results"></div>
+
+    <script>
+        // Listen for form submit
+        $('#search-form').submit(function(e) {
+            e.preventDefault();
+
+            var apiKey = '39478ad9aab91df8c23293585e9e940d';
+            var query = $('#query').val();
+            var url = 'https://api.themoviedb.org/3/search/movie?api_key=' + apiKey + '&query=' + query;
+
+            // Search TMDB for movies
+            $.get(url, function(data) {
+                var searchResults = $('#search-results');
+                var movies = data.results;
+
+                searchResults.empty();
+                for (var i = 0; i < movies.length; i++) {
+                    searchResults.append('<div class="movie">' +
+                        '<img src="https://image.tmdb.org/t/p/w185' + movies[i].poster_path + '" alt="' + movies[i].title + '">' +
+                        '<p>' + movies[i].title + '</p>' +
+                        '<button class="add-btn" data-poster="' + movies[i].poster_path + '" data-title="' + movies[i].title + '">Add</button>' +
+                    '</div>');
+                }
+            });
+        });
+
+       
+        // Listen for add button clicks
+        $(document).on('click', '.add-btn', function() {
+            var poster = $(this).data('poster');
+            var title = $(this).data('title');
+
+            // Add movie to Firestore
+            db.collection("movies").add({
+                title: title,
+                poster: poster
+            })
+            .then(function(docRef) {
+                alert("Movie saved successfully! with ID: ", docRef.id);
+            })
+            .catch(function(error) {
+                alert("Error saving movie. Please try again.", error);
+            });
+        });
+    </script>
+</body>
+</html>

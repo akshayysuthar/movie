@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1160650118224185"
+      crossorigin="anonymous"
+    ></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manja Movies</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
+    <script>
+      // Initialize Firebase
+      var firebaseConfig = {
+        apiKey: "AIzaSyDzPkn0rvSZ1fpwZZs_QBFezKm0Jcomo78",
+        authDomain: "manjamovies-ec449.firebaseapp.com",
+        projectId: "manjamovies-ec449",
+        storageBucket: "manjamovies-ec449.appspot.com",
+        messagingSenderId: "877062733979",
+        appId: "1:877062733979:web:651a50c80302873ad4463e",
+        measurementId: "G-BC8LN4ESR2",
+      };
+      firebase.initializeApp(firebaseConfig);
+      var db = firebase.firestore();
+    </script>
+  </head>
+
+  <body class="text-light">
+    <div id="homepage" class="main">
+      <nav class="navbar navbar-expand-lg text-bg-danger">
+        <div class="container">
+          <a class="navbar-brand" href="index.html">Manja Movies</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html"
+                  >Home</a>
+                <a class="nav-link" href="request.html"
+                  >Request for Movie</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                id="search-input"
+                aria-label="Search"
+              />
+              <button
+                class="btn btn-outline-success"
+                id="search-button"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+      <div id="movie-container" class="container">
+        <!-- All the movies shown here -->
+      </div>
+      <div id="pagination" class="pagination"></div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/movies.js"></script>
+
+    <Footer class="container">
+      <h2>Thanks For Manja Movies</h2>
+
+    </Footer>
+  </body>
+</html>

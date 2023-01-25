@@ -1,0 +1,69 @@
+<<!DOCTYPE html>
+<html>
+  <head>
+    <title>Movie Details</title>
+    <style>
+      /* CSS for formatting movie details */
+      .movie-details {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .movie-poster {
+        width: 30%;
+        margin-right: 2%;
+      }
+      img {
+        max-width: 100%;
+      }
+      .movie-info {
+        width: 68%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="movie-details"></div>
+    <script>
+      // Get the movie id from the URL
+      const urlParams = new URLSearchParams(location.search);
+      const movieId = urlParams.get("id");
+      // Retrieve movie details from TMDB API
+      fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=39478ad9aab91df8c23293585e9e940d&append_to_response=credits,videos,similar,reviews`)
+        .then(response => response.json())
+        .then(data => {
+          // Create the movie poster
+          const posterUrl = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+          const posterEl = document.createElement("div");
+          posterEl.classList.add("movie-poster");
+          posterEl.innerHTML = `<img src="${posterUrl}" alt="${data.title}">`;
+          // Create the movie info
+          const infoEl = document.createElement("div");
+          infoEl.classList.add("movie-info");
+          //create cast section
+          const cast = data.credits.cast.slice(0, 5).map(person => person.name).join(", ");
+          //create genre section
+          const genres = data.genres.map(genre => genre.name).join(", ");
+          //create video section
+          const videos = data.videos.results.map(video => video.key).join(", ");
+          //create reviews section
+          const reviews = data.reviews.results.map(review => review.content).join("<br>")
+          infoEl.innerHTML = `
+            <h1>${data.title}</h1>
+            <p><strong>Release Date:</strong> ${data.release_date}</p>
+            <p><strong>Overview:</strong> ${data.overview}</p>
+            <p><strong>Vote Average:</strong> ${data.vote_average}</p>
+            <p><strong>Budget:</strong> ${data.budget}</p>
+            <p><strong>Genres:</strong> ${genres}</p>
+            <p><strong>Cast:</strong> ${cast}</p>
+            <p><strong>Trailer:</strong> ${videos}</p>
+            <p><strong>Reviews:</strong> ${reviews}</p>
+          `;
+
+
+          // Add the poster and info to the movie details container
+          document.querySelector(".movie-details").appendChild(posterEl);
+          document.querySelector(".movie-details").appendChild(infoEl);
+        });
+    </script>
+  </body>
+</html>

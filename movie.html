@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg text-bg-danger pb-2">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Manja Movies</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                </ul>
+                <!-- <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form> -->
+            </div>
+        </div>
+    </nav>
+    <div id="movie-info"></div>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-firestore.js"></script>
+    <script>
+        // Initialize Firebase
+        var firebaseConfig = {
+            apiKey: "AIzaSyDzPkn0rvSZ1fpwZZs_QBFezKm0Jcomo78",
+            authDomain: "manjamovies-ec449.firebaseapp.com",
+            projectId: "manjamovies-ec449",
+            storageBucket: "manjamovies-ec449.appspot.com",
+            messagingSenderId: "877062733979",
+            appId: "1:877062733979:web:651a50c80302873ad4463e",
+            measurementId: "G-BC8LN4ESR2"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+        // Get the movie's ID from the query parameter
+        var movieId = new URLSearchParams(window.location.search).get("id");
+        // Get the movie's data from Firestore
+        db.collection("movies").doc(movieId).get().then(function (doc) {
+            var data = doc.data();
+            // create movie-info div
+            var movieInfo = document.createElement("div");
+            movieInfo.classList.add("movie-info");
+            // create title element
+            var title = document.createElement("h2");
+            title.textContent = data.title;
+            movieInfo.appendChild(title);
+            // display movie information
+            document.getElementById("movie-info").innerHTML += `
+            <head><title>${doc.data().title}</title></head>
+
+            <div class="text-center container">
+                <div>
+                    <div>
+                        <div>
+                            <img width="300" height="450" src="${doc.data().posterurl}"
+                                class="attachment-full size-full wp-post-image pb-5" alt="" decoding="async"
+                                sizes="(max-width: 300px) 100vw, 300px">
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="entry-title extra-bold h-font-size-30 h1-tablet">Download  ${doc.data().title}
+                    ( ${doc.data().year} ) Dual Audio {Hindi - English} [HDTS-HDRip] Full Movie 480p [600MB] | 720p [1.5GB] |
+                    1080p
+                    [3.4GB]</h1>
+                
+<div>
+    <p>Download ${doc.data().title} ( ${doc.data().year} ) HDTS-HDRip Full Movie (Hindi-English) 480p &amp; 720p
+        &amp; 1080p Qualities. This
+        is a Hollywood Hindi Dubbed movie and Available in <span style="color: #FFA500;">480p</span> in
+        <strong>[600MB]</strong>, <span style="color: #00ccff;">720p</span> in <strong>[1.5GB]</strong>
+        &amp; <span style="color: #00ccff;">1080p</span> in <strong>[3.4GB]</strong> in MKV Format. This
+        Movie Is Now Available In
+        <strong><span style="color: #ff0000;">Hindi (Cleaned) Audio</span></strong>.
+    </p>
+    <p><span style="color: #339966;"><strong><a style="color: #339966;" href="/">Manja Movies/a></strong></span> is
+        the best online platform for
+        downloading <span style="color: #339966;"><strong><a style="color: #339966;"
+                    href="/category/english-movies/">Hollywood</a></strong></span> and <strong><a
+                href="/category/bollywood/"><span style="color: #339966;">Bollywood
+                    Movies</span></a></strong>. We provide direct download link
+        for fast and secure downloading. Click on the download button below and follow the steps to
+        start download.</p>
+    <h3 style="text-align: center;"><span
+            style="font-family: arial black, sans-serif; color: #00ffff;"><strong><strong>Download
+                    ${doc.data().title} ( ${doc.data().year} ) Hindi 480p, 720p &amp; 1080p</strong> ~
+                Manja Movies </strong></span></h3>
+    <h3><strong><span style="color: #ffffff;">Movie Info:</span></strong></h3>
+    <p><strong><a href="https://www.imdb.com/title/tt1630029/" target="_blank" rel="noopener"><span
+                    style="color:#00ff1c;"></span> IMDb Rating:-
+                ${doc.data().rating}/10</span></a></strong><br>
+        <strong>Movie Name:</strong> ${doc.data().title}<br>
+        <strong>Release Year:</strong> ${doc.data().year}<br>
+        <strong>Language:</strong> <span style="color: #ff0000;"><strong>${doc.data().lang}</strong></span><br>
+        <strong>Subtitle:</strong> ${doc.data().subtitle}<br>
+        <strong>Size:</strong> ${doc.data().size}<br>
+        <strong>Quality:</strong> ${doc.data().quality} – <span
+            style="color: #ff0000;"><strong>HDTS-HDRip</strong></span><br>
+        <strong>Format:</strong> MKV
+    </p>
+
+    <h2 style="text-align: center;"><span style="color: #00ffff;">Screenshots: (Must See Before
+            Downloading)…</span></h2>
+    <img decoding="async" src="${doc.data().ss1}">
+    <img decoding="async" src="${doc.data().ss2}">
+    <img decoding="async" src="${doc.data().ss3}">
+    <img decoding="async" src="${doc.data().ss4}"></p>
+    <p style="text-align: center;"><span style="font-size: 12pt;"><strong><span style="color: #eef425;">* <span
+                        style="font-family: book antiqua, palatino, serif;"><strong>Note: Hindi Audio is
+                            Original Dubbed</span>
+    </p>
+    <p style="text-align: center;"><span style="font-size: 12pt;"><strong><span style="color: #eef425;">* <span
+                        style="font-family: book antiqua, palatino, serif;"><strong>[ – No Ads –
+                            ]</strong></span>*</span></strong></span></p>
+    <hr>
+    <h5 style="text-align: center;"><strong><span style="color: #fff;">${doc.data().title} ( ${doc.data().year} )
+                <span style="color: #ffa500;">{Hindi-English}</span> 480p HDTS Rip HD Print x264 [${doc.data().size-480}]</span> </strong></h5>
+    <p style="text-align: center;"><a href="${doc.data().download-480}"><button class="dwd-button">Download
+                Now</button></a></p>
+
+    <h5 style="text-align: center;"><strong><span style="color: #fff">${doc.data().title} ( ${doc.data().year} )
+                <span style="color: #ffa500;">{Hindi-English}</span> 720p HDTS Rip HD Print x264
+                [${doc.data().size-720}]</span> </strong></h5>
+    <p style="text-align: center;"><a href="${doc.data().download-720}" target="_blank" rel="nofollow noreferrer noopener"><button
+                class="dwd-button">Download Now</button></a></p>
+
+    <h5 style="text-align: center;"><strong><span style="color: #fff;">${doc.data().title} ( ${doc.data().year} )
+                <span style="color: #ffa500;">{Hindi-English}</span> 1080p HQ-HDTS Rip HD Print x264
+                [${doc.data().size-1080}]</span> </strong></h5>
+    <p style="text-align: center;"><a href="${doc.data().download-1080}" target="_blank" rel="nofollow noreferrer noopener"><button
+                class="dwd-button">Download Now</button></a></p>
+
+
+    <h4 style="text-align: center;"><strong><span
+                style="color: black;background: #fdf8f2;padding: 10px;display: block;">${doc.data().title} | Full
+                Movie In Hindi.HQ HD-TC</span></strong></h4>
+
+
+    <p class="text-light">Thank You For Visiting <span style="color: #008000;"><strong><a style="color: #008000;"
+                    href="/">Manja Movies</a></strong></span> The Prefect Spot For HD Dual Audio
+        (Hindi-English) Movies &amp; TV Series Download. So Please Keep Downloading &amp; Keep Sharing.
+        Enjoy!</p>
+</div>
+`;
+            // create other elements like description, release date etc
+            // Append movie info to page
+            document.getElementById("movie-info").appendChild(movieInfo);
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
